@@ -29,6 +29,6 @@ gateway-to-Collector checks passed locally before merge.
 - [x] Register and start the dedicated `loggify-mac` runner on this Mac.
 - [x] Update all CI jobs to target `[self-hosted, macOS, ARM64, loggify]`.
 - [x] Validate the workflow syntax and runner labels locally.
-- [ ] Push the branch and verify the pull-request CI run passes locally.
-- [ ] Merge to `main`, verify `origin/main`, and verify the main CI run.
-- [ ] Close issue #3 and delete the implementation branch.
+- [x] Push the branch and verify PR run `29952492536` passes on `loggify-mac`.
+- [x] Merge to `main`, verify `origin/main`, and verify the main CI run.
+- [x] Close issue #3 and delete the implementation branch.
