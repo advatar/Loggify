@@ -16,3 +16,8 @@
 - [x] Commit and push the issue branch.
 - [x] Merge the verified feature into `main`, push, and verify it is reachable from `origin/main`.
 - [x] Close the GitHub issue and delete the merged implementation branch.
+
+GitHub Actions run `29949691686` was created, but GitHub started none of its
+steps because the account has a failed payment or exhausted spending limit.
+The equivalent Node, Dart, Swift, Helm, Compose, Docker build, and live
+gateway-to-Collector checks passed locally before merge.
