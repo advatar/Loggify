@@ -32,3 +32,16 @@ gateway-to-Collector checks passed locally before merge.
 - [x] Push the branch and verify PR run `29952492536` passes on `loggify-mac`.
 - [x] Merge to `main`, verify `origin/main`, and verify the main CI run.
 - [x] Close issue #3 and delete the implementation branch.
+
+## Issue #5 — Railway deployment
+
+- [x] Confirm Railway CLI authentication and the Advatar workspace.
+- [x] Create GitHub issue #5 and its single implementation branch.
+- [x] Add Railway-specific gateway and Collector deployment configuration.
+- [x] Create an isolated Loggify project and production services on Railway.
+- [x] Configure private Collector networking and protected gateway variables.
+- [ ] Deploy both services and generate the public HTTPS gateway domain.
+- [ ] Verify health, authentication enforcement, OTLP ingest, and Collector receipt.
+- [ ] Document deployment, operations, secret retrieval, and rollback.
+- [ ] Run local validation and pass pull-request CI on `loggify-mac`.
+- [ ] Merge to `main`, verify the main CI run, close issue #5, and delete the branch.

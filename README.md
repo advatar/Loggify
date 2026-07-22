@@ -29,6 +29,9 @@ curl -X POST http://localhost:8080/v1/logs \
 See [PLAN.md](PLAN.md), [the specification](specification/README.md), and the
 individual SDK READMEs for integration details.
 
+For a managed two-service deployment, see the
+[Railway guide](deployment/railway/README.md).
+
 ## Security model
 
 - Client keys identify a project but are not backend administrator secrets.
