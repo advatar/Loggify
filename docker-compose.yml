@@ -1,0 +1,29 @@
+services:
+  gateway:
+    build:
+      context: .
+      dockerfile: gateway/Dockerfile
+    environment:
+      LOGGIFY_KEYS: ${LOGGIFY_KEYS:-local-development-key:demo:development}
+      LOGGIFY_COLLECTOR_URL: http://collector:4318
+      LOGGIFY_PORT: 8080
+      LOGGIFY_MAX_BODY_BYTES: ${LOGGIFY_MAX_BODY_BYTES:-1048576}
+      LOGGIFY_REQUESTS_PER_MINUTE: ${LOGGIFY_REQUESTS_PER_MINUTE:-600}
+    ports:
+      - "8080:8080"
+    depends_on:
+      collector:
+        condition: service_started
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+  collector:
+    image: otel/opentelemetry-collector-contrib:0.130.1
+    command: ["--config=/etc/otelcol/config.yaml"]
+    volumes:
+      - ./deployment/collector/config.yaml:/etc/otelcol/config.yaml:ro
+    expose:
+      - "4318"
+    read_only: true
+    security_opt:
+      - no-new-privileges:true

@@ -1,0 +1,36 @@
+gateway:
+  image:
+    repository: ghcr.io/advatar/loggify-gateway
+    tag: "0.1.0"
+    pullPolicy: IfNotPresent
+  replicas: 2
+  service:
+    type: ClusterIP
+    port: 80
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 500m
+      memory: 256Mi
+  maxBodyBytes: 1048576
+  timeoutMs: 5000
+  requestsPerMinute: 600
+  existingSecret: ""
+  # Development-only fallback. Use existingSecret in production.
+  ingestKeys: "local-development-key:demo:development"
+
+collector:
+  image:
+    repository: otel/opentelemetry-collector-contrib
+    tag: "0.130.1"
+    pullPolicy: IfNotPresent
+  replicas: 1
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi

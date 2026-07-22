@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "loggify.name" . }}-gateway
+  labels:
+    {{- include "loggify.labels" . | nindent 4 }}
+    app.kubernetes.io/component: gateway
+spec:
+  replicas: {{ .Values.gateway.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "loggify.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/component: gateway
+  template:
+    metadata:
+      labels:
+        {{- include "loggify.labels" . | nindent 8 }}
+        app.kubernetes.io/component: gateway
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile: { type: RuntimeDefault }
+      containers:
+        - name: gateway
+          image: "{{ .Values.gateway.image.repository }}:{{ .Values.gateway.image.tag }}"
+          imagePullPolicy: {{ .Values.gateway.image.pullPolicy }}
+          env:
+            - name: LOGGIFY_KEYS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ default (printf "%s-gateway" (include "loggify.name" .)) .Values.gateway.existingSecret }}
+                  key: keys
+            - { name: LOGGIFY_COLLECTOR_URL, value: "http://{{ include "loggify.name" . }}-collector:4318" }
+            - { name: LOGGIFY_PORT, value: "8080" }
+            - { name: LOGGIFY_MAX_BODY_BYTES, value: {{ .Values.gateway.maxBodyBytes | quote }} }
+            - { name: LOGGIFY_TIMEOUT_MS, value: {{ .Values.gateway.timeoutMs | quote }} }
+            - { name: LOGGIFY_REQUESTS_PER_MINUTE, value: {{ .Values.gateway.requestsPerMinute | quote }} }
+          ports:
+            - { name: http, containerPort: 8080 }
+          readinessProbe:
+            httpGet: { path: /healthz, port: http }
+          livenessProbe:
+            httpGet: { path: /healthz, port: http }
+          resources: {{- toYaml .Values.gateway.resources | nindent 12 }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: ["ALL"] }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "loggify.name" . }}-gateway
+  labels:
+    {{- include "loggify.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.gateway.service.type }}
+  selector:
+    app.kubernetes.io/name: {{ include "loggify.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/component: gateway
+  ports:
+    - { name: http, port: {{ .Values.gateway.service.port }}, targetPort: http }

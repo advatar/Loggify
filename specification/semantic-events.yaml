@@ -1,0 +1,38 @@
+schema_version: 1
+namespace: loggify
+transport: otlp
+propagation: w3c-trace-context
+required_resource_attributes:
+  - service.name
+  - deployment.environment.name
+  - loggify.schema.version
+required_event_attributes:
+  - loggify.component
+  - loggify.operation
+optional_event_attributes:
+  - loggify.flow.id
+  - loggify.error.code
+  - loggify.reason
+  - loggify.expected
+  - loggify.actual
+  - loggify.trace.history
+events:
+  - decision
+  - invariant.fail
+  - state.transition
+  - snapshot
+legacy_events:
+  - span.start
+  - span.end
+  - external.call.start
+  - external.call.end
+privacy:
+  max_breadcrumb_events: 25
+  max_breadcrumb_bytes: 16384
+  attach_breadcrumbs_at_or_above: error
+  prohibited_identity_types:
+    - account_id
+    - patient_id
+    - medical_record_id
+    - raw_health_data
+
