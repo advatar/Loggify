@@ -21,3 +21,14 @@ GitHub Actions run `29949691686` was created, but GitHub started none of its
 steps because the account has a failed payment or exhausted spending limit.
 The equivalent Node, Dart, Swift, Helm, Compose, Docker build, and live
 gateway-to-Collector checks passed locally before merge.
+
+## Issue #3 — local self-hosted CI runner
+
+- [x] Assess repository runner registration and existing local runner services.
+- [x] Create GitHub issue #3 and its single implementation branch.
+- [x] Register and start the dedicated `loggify-mac` runner on this Mac.
+- [x] Update all CI jobs to target `[self-hosted, macOS, ARM64, loggify]`.
+- [x] Validate the workflow syntax and runner labels locally.
+- [x] Push the branch and verify PR run `29952492536` passes on `loggify-mac`.
+- [x] Merge to `main`, verify `origin/main`, and verify the main CI run.
+- [x] Close issue #3 and delete the implementation branch.

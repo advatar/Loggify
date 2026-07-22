@@ -10,33 +10,28 @@ permissions:
 
 jobs:
   node:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, macOS, ARM64, loggify]
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 24
-          cache: npm
       - run: npm ci
       - run: npm test
       - run: docker compose config --quiet
       - run: docker build -f gateway/Dockerfile .
 
   dart:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, macOS, ARM64, loggify]
     defaults:
       run:
         working-directory: sdk/dart
     steps:
       - uses: actions/checkout@v4
-      - uses: dart-lang/setup-dart@v1
-      - run: dart pub get
-      - run: dart format --output=none --set-exit-if-changed lib test
-      - run: dart analyze --fatal-infos
-      - run: dart test
+      - run: /Users/johansellstrom/fvm/versions/stable/bin/dart pub get
+      - run: /Users/johansellstrom/fvm/versions/stable/bin/dart format --output=none --set-exit-if-changed lib test
+      - run: /Users/johansellstrom/fvm/versions/stable/bin/dart analyze --fatal-infos
+      - run: /Users/johansellstrom/fvm/versions/stable/bin/dart test
 
   swift:
-    runs-on: macos-15
+    runs-on: [self-hosted, macOS, ARM64, loggify]
     defaults:
       run:
         working-directory: sdk/swift
@@ -45,10 +40,8 @@ jobs:
       - run: swift test
 
   helm:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, macOS, ARM64, loggify]
     steps:
       - uses: actions/checkout@v4
-      - uses: azure/setup-helm@v4
       - run: helm lint deployment/helm/loggify
       - run: helm template loggify deployment/helm/loggify >/dev/null
-
