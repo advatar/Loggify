@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   node:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, macOS, ARM64, loggify]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -23,7 +23,7 @@ jobs:
       - run: docker build -f gateway/Dockerfile .
 
   dart:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, macOS, ARM64, loggify]
     defaults:
       run:
         working-directory: sdk/dart
@@ -36,7 +36,7 @@ jobs:
       - run: dart test
 
   swift:
-    runs-on: macos-15
+    runs-on: [self-hosted, macOS, ARM64, loggify]
     defaults:
       run:
         working-directory: sdk/swift
@@ -45,10 +45,9 @@ jobs:
       - run: swift test
 
   helm:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, macOS, ARM64, loggify]
     steps:
       - uses: actions/checkout@v4
       - uses: azure/setup-helm@v4
       - run: helm lint deployment/helm/loggify
       - run: helm template loggify deployment/helm/loggify >/dev/null
-
