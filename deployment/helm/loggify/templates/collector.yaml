@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "loggify.name" . }}-collector
+  labels:
+    {{- include "loggify.labels" . | nindent 4 }}
+    app.kubernetes.io/component: collector
+spec:
+  replicas: {{ .Values.collector.replicas }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "loggify.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/component: collector
+  template:
+    metadata:
+      labels:
+        {{- include "loggify.labels" . | nindent 8 }}
+        app.kubernetes.io/component: collector
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile: { type: RuntimeDefault }
+      containers:
+        - name: collector
+          image: "{{ .Values.collector.image.repository }}:{{ .Values.collector.image.tag }}"
+          imagePullPolicy: {{ .Values.collector.image.pullPolicy }}
+          args: ["--config=/etc/otelcol/config.yaml"]
+          ports:
+            - { name: otlp-http, containerPort: 4318 }
+          readinessProbe:
+            tcpSocket: { port: otlp-http }
+          livenessProbe:
+            tcpSocket: { port: otlp-http }
+          resources: {{- toYaml .Values.collector.resources | nindent 12 }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: ["ALL"] }
+          volumeMounts:
+            - { name: config, mountPath: /etc/otelcol, readOnly: true }
+      volumes:
+        - name: config
+          configMap: { name: {{ include "loggify.name" . }}-collector }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "loggify.name" . }}-collector
+  labels:
+    {{- include "loggify.labels" . | nindent 4 }}
+spec:
+  selector:
+    app.kubernetes.io/name: {{ include "loggify.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/component: collector
+  ports:
+    - { name: otlp-http, port: 4318, targetPort: otlp-http }
+

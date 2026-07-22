@@ -1,0 +1,13 @@
+{
+  "name": "loggify-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": ["gateway", "sdk/typescript"],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "check": "npm run build && npm test"
+  },
+  "engines": { "node": ">=20" }
+}
+
