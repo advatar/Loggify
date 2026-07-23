@@ -38,7 +38,7 @@ on any cloud without coupling SDKs to Graylog, GELF, ARK, or showntell.dev.
 ### Phase 3 — ARK migration
 
 - Publish versioned SDK artifacts.
-- Adapt UniLogger to the shared specification and OTLP exporter interface.
+- [x] Adapt UniLogger to the shared specification and OTLP exporter interface.
 - Point ARK at Loggify's gateway while retaining Graylog as a Collector output.
 - Compare records and dashboards during a dual-write period.
 - Remove ARK-local copies only after parity and rollback validation.
@@ -74,4 +74,3 @@ on any cloud without coupling SDKs to Graylog, GELF, ARK, or showntell.dev.
 - Redaction is tested at SDK and gateway layers.
 - Load, retry, shutdown, and Collector-unavailable behavior are measured.
 - Retention, deletion, residency, and incident procedures are documented.
-

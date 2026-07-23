@@ -45,3 +45,11 @@ gateway-to-Collector checks passed locally before merge.
 - [x] Document deployment, operations, secret retrieval, and rollback.
 - [x] Run local validation and pass pull-request CI on `loggify-mac`.
 - [x] Merge to `main`, verify the main CI run, close issue #5, and delete the branch.
+
+## Issue #7 — UniLogger integration
+
+- [x] Implement and merge UniLogger's authenticated Loggify OTLP transport.
+- [x] Verify the Swift transport against the live Railway gateway and Collector.
+- [x] Document UniLogger as Loggify's production `swift-log` adapter.
+- [ ] Run local validation and pass pull-request CI on `loggify-mac`.
+- [ ] Merge to `main`, verify the main CI run, close issue #7, and delete the branch.
