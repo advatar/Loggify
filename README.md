@@ -29,6 +29,11 @@ curl -X POST http://localhost:8080/v1/logs \
 See [PLAN.md](PLAN.md), [the specification](specification/README.md), and the
 individual SDK READMEs for integration details.
 
+Swift applications that already use `swift-log` should use
+[UniLogger](https://github.com/advatar/UniLogger), Loggify's production Swift
+adapter. It adds authenticated OTLP delivery while retaining bounded batching,
+redaction, retry, and offline disk spooling.
+
 For a managed two-service deployment, see the
 [Railway guide](deployment/railway/README.md).
 
