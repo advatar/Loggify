@@ -43,5 +43,5 @@ gateway-to-Collector checks passed locally before merge.
 - [x] Deploy both services and generate the public HTTPS gateway domain.
 - [x] Verify health, authentication enforcement, OTLP ingest, and Collector receipt.
 - [x] Document deployment, operations, secret retrieval, and rollback.
-- [ ] Run local validation and pass pull-request CI on `loggify-mac`.
-- [ ] Merge to `main`, verify the main CI run, close issue #5, and delete the branch.
+- [x] Run local validation and pass pull-request CI on `loggify-mac`.
+- [x] Merge to `main`, verify the main CI run, close issue #5, and delete the branch.
