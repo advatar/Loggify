@@ -58,7 +58,11 @@ gateway-to-Collector checks passed locally before merge.
 
 - [x] Read execution plan, existing qualification verifier and release checks; keep owner boundaries.
 - [x] Browser-review Align #149 independently (both downloads, desktop and mobile).
-- [ ] Package and attest one actual Loggify gateway build and its native tests in product CI.
-- [ ] Independently verify workflow issuer, exact commit, artifacts and scope in Align.
-- [ ] Reproduce a read-only dossier and negative cases; keep human decisions pending.
-- [ ] Publish separate reviewable PRs, CI run and generated dossier; leave #103 open for unfulfilled acceptance.
+- [x] Package and attest actual native gateway CI build 44011837827 (four tests passed).
+- [x] Verify all three original files with GitHub/Sigstore, pinned workflow/commit/run and independent scope policy.
+- [x] Generate read-only HTML/JSON dossier and six held refusal challenges; legal, quality and human release decisions remain pending.
+- [x] Publish separate reviewable product PR #10 and Align PR #150, actual CI run and generated dossier; leave #103 open for unfulfilled acceptance.
+
+Observed external dependency: GitHub Actions artifact storage quota rejects uploads. Authenticated public CI-log fallback preserves original bytes; artifact retention remains HOLD. Product PR: https://github.com/advatar/Loggify/pull/10. Actual tested merge commit: `09da6145e03b32e1815e434a176d38aa8c9e0b70`. No independent human review or full #103 completion claimed.
+
+Align integration PR: https://github.com/advatar/Align/pull/150. Dossier: `integrations/loggify/results/44011837827/dossier.html` and `.json` in Align. One-command reproduction is in `integrations/loggify/README.md`. Local verification: 12 adapter tests, 11 release-gate tests, constitutional specification validation and offline desktop/mobile dossier browser checks passed. Product capture refusal tests passed locally and in actual CI. #149 real-browser results are recorded on that PR.
