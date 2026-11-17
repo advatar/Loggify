@@ -53,3 +53,12 @@ gateway-to-Collector checks passed locally before merge.
 - [x] Document UniLogger as Loggify's production `swift-log` adapter.
 - [x] Run local validation and pass pull-request CI on `loggify-mac`.
 - [x] Merge to `main`, verify the main CI run, close issue #7, and delete the branch.
+
+## Align #103 — native Loggify gateway evidence
+
+- [x] Read execution plan, existing qualification verifier and release checks; keep owner boundaries.
+- [x] Browser-review Align #149 independently (both downloads, desktop and mobile).
+- [ ] Package and attest one actual Loggify gateway build and its native tests in product CI.
+- [ ] Independently verify workflow issuer, exact commit, artifacts and scope in Align.
+- [ ] Reproduce a read-only dossier and negative cases; keep human decisions pending.
+- [ ] Publish separate reviewable PRs, CI run and generated dossier; leave #103 open for unfulfilled acceptance.
