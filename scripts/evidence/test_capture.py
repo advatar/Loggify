@@ -11,6 +11,22 @@ from capture import capture
 
 
 class CaptureRefusalTest(unittest.TestCase):
+    def test_github_actions_execution_is_refused(self):
+        with tempfile.TemporaryDirectory() as temp, patch.dict('os.environ', {'GITHUB_ACTIONS':'true'}):
+            with patch('capture.subprocess.run') as run:
+                with self.assertRaisesRegex(SystemExit,'local execution required'):
+                    capture(temp)
+                run.assert_not_called()
+
+    def test_previous_evidence_is_preserved(self):
+        with tempfile.TemporaryDirectory() as temp:
+            record=Path(temp)/'build-record.json';record.write_text('previous evidence')
+            with patch('capture.subprocess.run') as run:
+                with self.assertRaisesRegex(SystemExit,'must be empty'):
+                    capture(temp)
+                run.assert_not_called()
+            self.assertEqual(record.read_text(),'previous evidence')
+
     def test_failed_native_suite_cannot_produce_build_record(self):
         with tempfile.TemporaryDirectory() as temp:
             with patch('capture.subprocess.run', side_effect=[None, subprocess.CompletedProcess([], 1, b'not ok 1 - failed\n')]):
