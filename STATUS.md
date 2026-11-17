@@ -66,3 +66,13 @@ gateway-to-Collector checks passed locally before merge.
 Observed external dependency: GitHub Actions artifact storage quota rejects uploads. Authenticated public CI-log fallback preserves original bytes; artifact retention remains HOLD. Product PR: https://github.com/advatar/Loggify/pull/10. Actual tested merge commit: `09da6145e03b32e1815e434a176d38aa8c9e0b70`. No independent human review or full #103 completion claimed.
 
 Align integration PR: https://github.com/advatar/Align/pull/150. Dossier: `integrations/loggify/results/44011837827/dossier.html` and `.json` in Align. One-command reproduction is in `integrations/loggify/README.md`. Local verification: 12 adapter tests, 11 release-gate tests, constitutional specification validation and offline desktop/mobile dossier browser checks passed. Product capture refusal tests passed locally and in actual CI. #149 real-browser results are recorded on that PR.
+
+## Align #103 correction — local tests only
+
+User direction supersedes the CI-based approach above. Prior CI reports are historical and are not the current deliverable.
+
+- [ ] Remove the new product workflow and Align workflow additions.
+- [ ] Capture a real local gateway build/tests; remove Actions/Sigstore/log dependencies.
+- [ ] Produce an offline dossier with integrity checks and explicit unsigned-issuer hold.
+- [ ] Run local regression/browser tests; update both PRs and reproduction instructions.
+- [ ] Commit/push with CI skip markers and keep PRs open for review.

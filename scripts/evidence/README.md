@@ -1,32 +1,31 @@
-# Native gateway evidence for Align #103
+# Local gateway evidence for Align #103
 
-`npm ci && python3 scripts/evidence/capture.py /tmp/loggify-evidence`
-builds the actual gateway and runs its existing native tests, then packages
-`dist` and `package.json`. The ZIP needs Node 22 at runtime. Evidence is detached.
-Local output has no authenticated issuer and must remain unverified.
+From the Loggify checkout:
 
-The native-evidence workflow repeats this on the product CI runner. GitHub
-OIDC/Sigstore authenticates the ZIP, TAP output and build record. The issuer is
-`advatar/Loggify/.github/workflows/native-evidence.yml`. This uses GitHub's
-existing provenance format, not an Align approval protocol. CI runner integrity,
-GitHub identity and the reviewed workflow remain trust assumptions. This is not
-an isolated trusted builder. Pull-request provenance covers the tested merge
-commit, which can differ from the PR head. Retain that exact commit in review.
+```sh
+npm ci
+python3 -m unittest discover -s scripts/evidence -v
+python3 scripts/evidence/capture.py /tmp/loggify-local-evidence
+```
 
-No telemetry, credentials or production records are exported. The record exposes
-public source/build identities, tool versions, fixture test names and hashes.
-Tests use fictional telemetry. This is gateway engineering evidence only; SDKs,
-deployment, production configuration, legal applicability and qualified human
-quality/release decisions are separate. The latter remain pending in Align.
+Use a new empty output directory outside the source checkout. The capture runs
+the real TypeScript gateway build and its existing native tests, then saves
+`gateway.zip`, `tests.tap` and `build-record.json`. The ZIP contains dist and
+package metadata with fixed ZIP metadata for independent local comparison. Node
+is an external runtime, recorded alongside npm. Commit identity, source dirtiness,
+local run ID, exact artifact/test hashes and intended-use scope are recorded.
 
-The Align adapter independently pins repository, workflow, source commit, scope,
-maximum age and revocations, verifies the original attestations using `gh`, and
-checks evidence bytes with its existing release integrity helper. It does not use
-the product record as a trust policy or manufacture Kline qualification evidence.
+All execution is local. No Actions job, OIDC/Sigstore, log transport, artifact
+upload or remote evidence lookup is used. `npm ci` installs the locked local
+build dependencies; it does not invoke GitHub CI. The capture refuses execution
+in GitHub Actions and refuses to overwrite prior evidence.
 
-GitHub artifact storage quota was exhausted on first run 44011394593, after
-attestation succeeded. The capture now also emits the same three public files as
-a bounded base64 log transport. This fallback is not trust: Align re-verifies
-every file against GitHub/Sigstore. The normal artifact upload still runs and
-its failure remains visible in CI and the dossier. No private record belongs in
-this log transport.
+The output is unsigned: issuer and signature are null. Hashes establish integrity,
+not who produced the evidence. Align explicitly holds issuer authentication, legal
+applicability, quality review and the human release decision. Local tests cannot
+manufacture an authorized signer or legal judgement. The output contains only
+public build metadata and fictional test output; no production telemetry.
+
+The earlier CI approach was superseded by the user's local-only direction. The
+new workflow has been removed. Existing unrelated repository workflows are not
+part of this adapter. Review stays in product PR #10 and Align PR #150.
