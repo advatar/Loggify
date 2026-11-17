@@ -54,25 +54,18 @@ gateway-to-Collector checks passed locally before merge.
 - [x] Run local validation and pass pull-request CI on `loggify-mac`.
 - [x] Merge to `main`, verify the main CI run, close issue #7, and delete the branch.
 
-## Align #103 — native Loggify gateway evidence
+## Align #103 — local-only Loggify gateway evidence
 
-- [x] Read execution plan, existing qualification verifier and release checks; keep owner boundaries.
-- [x] Browser-review Align #149 independently (both downloads, desktop and mobile).
-- [x] Package and attest actual native gateway CI build 44011837827 (four tests passed).
-- [x] Verify all three original files with GitHub/Sigstore, pinned workflow/commit/run and independent scope policy.
-- [x] Generate read-only HTML/JSON dossier and six held refusal challenges; legal, quality and human release decisions remain pending.
-- [x] Publish separate reviewable product PR #10 and Align PR #150, actual CI run and generated dossier; leave #103 open for unfulfilled acceptance.
+The user's local-only instruction supersedes the earlier CI approach. The new product workflow and Align workflow additions are removed; prior CI-backed reports are superseded, not relabeled as local.
 
-Observed external dependency: GitHub Actions artifact storage quota rejects uploads. Authenticated public CI-log fallback preserves original bytes; artifact retention remains HOLD. Product PR: https://github.com/advatar/Loggify/pull/10. Actual tested merge commit: `09da6145e03b32e1815e434a176d38aa8c9e0b70`. No independent human review or full #103 completion claimed.
+- [x] Read execution plan and existing verifier/release checks; preserve owner boundaries.
+- [x] Run #149 in a real local browser, including both download buttons; record results there.
+- [x] Capture an actual clean local gateway build at `9deb2eb848b6958aecbb522d738ef7bcd47c7170`; four native tests passed.
+- [x] Run four local capture refusal tests, 12 offline adapter tests, 11 release-gate regressions and constitutional specification checks.
+- [x] Compare actual local rebuilt package bytes with reference SHA-256 `f5a601ec647070a1db2287e4b3de8bdf1981103154741e67cd2ecf6ff0c470de`.
+- [x] Generate replacement offline HTML/JSON dossier and five held challenges; retain original local package/TAP/record.
+- [x] Update local reproduction instructions and existing PRs; commit/push with CI skip markers.
 
-Align integration PR: https://github.com/advatar/Align/pull/150. Dossier: `integrations/loggify/results/44011837827/dossier.html` and `.json` in Align. One-command reproduction is in `integrations/loggify/README.md`. Local verification: 12 adapter tests, 11 release-gate tests, constitutional specification validation and offline desktop/mobile dossier browser checks passed. Product capture refusal tests passed locally and in actual CI. #149 real-browser results are recorded on that PR.
+Product PR: https://github.com/advatar/Loggify/pull/10. Align PR: https://github.com/advatar/Align/pull/150. Current dossier in Align: `integrations/loggify/results/local-20261117/`; one-command local reproduction: `integrations/loggify/README.md`.
 
-## Align #103 correction — local tests only
-
-User direction supersedes the CI-based approach above. Prior CI reports are historical and are not the current deliverable.
-
-- [ ] Remove the new product workflow and Align workflow additions.
-- [ ] Capture a real local gateway build/tests; remove Actions/Sigstore/log dependencies.
-- [ ] Produce an offline dossier with integrity checks and explicit unsigned-issuer hold.
-- [ ] Run local regression/browser tests; update both PRs and reproduction instructions.
-- [ ] Commit/push with CI skip markers and keep PRs open for review.
+Evidence is unsigned. Issuer authentication, qualified legal decisions, named quality ownership/real quality record and the human release decision remain HOLD. Local hashes are integrity checks, never an authenticated signer or permission. No GitHub CI, Sigstore, log fallback or artifact upload is used by this implementation; artifact quota and disabled Actions are no longer dependencies. #103 remains open for its missing acceptance evidence and independent human review.
