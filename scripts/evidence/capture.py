@@ -1,4 +1,5 @@
 """Capture source-owned gateway evidence. No qualification or release authority."""
+import base64
 import hashlib
 import json
 import os
@@ -51,6 +52,14 @@ def capture(output):
                    'No model inference, clinical evidence, legal judgement, QMS approval or release permission.'],
     }
     (output / 'build-record.json').write_text(json.dumps(record, indent=2) + '\n')
+    # Public code and fictional test metadata only. This bounded log transport
+    # survives artifact quota failures; consumers must still verify attestation.
+    files = {name: base64.b64encode((output / name).read_bytes()).decode()
+             for name in ('gateway.zip', 'tests.tap', 'build-record.json')}
+    encoded = base64.b64encode(json.dumps(files, sort_keys=True).encode()).decode()
+    if len(encoded) > 200000:
+        raise SystemExit('log evidence exceeds bounded fallback')
+    print('ALIGN_PUBLIC_EVIDENCE_V1:' + encoded)
 
 
 if __name__ == '__main__':

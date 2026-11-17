@@ -23,3 +23,10 @@ The Align adapter independently pins repository, workflow, source commit, scope,
 maximum age and revocations, verifies the original attestations using `gh`, and
 checks evidence bytes with its existing release integrity helper. It does not use
 the product record as a trust policy or manufacture Kline qualification evidence.
+
+GitHub artifact storage quota was exhausted on first run 44011394593, after
+attestation succeeded. The capture now also emits the same three public files as
+a bounded base64 log transport. This fallback is not trust: Align re-verifies
+every file against GitHub/Sigstore. The normal artifact upload still runs and
+its failure remains visible in CI and the dossier. No private record belongs in
+this log transport.
