@@ -22,6 +22,7 @@ jobs:
         with:
           node-version: '22'
           cache: npm
+      - run: python3 -m unittest discover -s scripts/evidence -p 'test_*.py' -v
       - run: npm ci
       - name: Test and package the actual gateway
         run: python3 scripts/evidence/capture.py evidence-output
