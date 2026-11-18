@@ -53,3 +53,19 @@ gateway-to-Collector checks passed locally before merge.
 - [x] Document UniLogger as Loggify's production `swift-log` adapter.
 - [x] Run local validation and pass pull-request CI on `loggify-mac`.
 - [x] Merge to `main`, verify the main CI run, close issue #7, and delete the branch.
+
+## Align #103 — local-only Loggify gateway evidence
+
+The user's local-only instruction supersedes the earlier CI approach. The new product workflow and Align workflow additions are removed; prior CI-backed reports are superseded, not relabeled as local.
+
+- [x] Read execution plan and existing verifier/release checks; preserve owner boundaries.
+- [x] Run #149 in a real local browser, including both download buttons; record results there.
+- [x] Capture an actual clean local gateway build at `9deb2eb848b6958aecbb522d738ef7bcd47c7170`; four native tests passed.
+- [x] Run four local capture refusal tests, 12 offline adapter tests, 11 release-gate regressions and constitutional specification checks.
+- [x] Compare actual local rebuilt package bytes with reference SHA-256 `f5a601ec647070a1db2287e4b3de8bdf1981103154741e67cd2ecf6ff0c470de`.
+- [x] Generate replacement offline HTML/JSON dossier and five held challenges; retain original local package/TAP/record.
+- [x] Update local reproduction instructions and existing PRs; commit/push with CI skip markers.
+
+Product PR: https://github.com/advatar/Loggify/pull/10. Align PR: https://github.com/advatar/Align/pull/150. Current dossier in Align: `integrations/loggify/results/local-20261117/`; one-command local reproduction: `integrations/loggify/README.md`.
+
+Evidence is unsigned. Issuer authentication, qualified legal decisions, named quality ownership/real quality record and the human release decision remain HOLD. Local hashes are integrity checks, never an authenticated signer or permission. No GitHub CI, Sigstore, log fallback or artifact upload is used by this implementation; artifact quota and disabled Actions are no longer dependencies. #103 remains open for its missing acceptance evidence and independent human review.
