@@ -30,8 +30,11 @@ def capture(output):
     text = result.stdout.decode()
     passed = re.findall(r'^# pass (\d+)$', text, re.M)
     failed = re.findall(r'^# fail (\d+)$', text, re.M)
+    total = re.findall(r'^# tests (\d+)$', text, re.M)
     if len(passed) != 1 or not int(passed[0]) or failed != ['0']:
         raise SystemExit('missing native test summary')
+    if total != passed:
+        raise SystemExit('native test total does not match passed tests')
     with zipfile.ZipFile(output / 'gateway.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
         paths = [Path('gateway/package.json'), *sorted(Path('gateway/dist').rglob('*'))]
         for path in paths:
